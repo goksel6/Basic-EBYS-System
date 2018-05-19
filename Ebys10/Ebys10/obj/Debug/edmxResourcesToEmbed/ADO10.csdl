@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EbysVol9Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="GIVENCOURSES">
+    <Key>
+      <PropertyRef Name="GCourseId" />
+    </Key>
+    <Property Name="GTeacherId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GCourseId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Credit" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SEMESTERCOURSE" Relationship="Self.FK__GIVENCOUR__GCour__412EB0B6" FromRole="GIVENCOURSES" ToRole="SEMESTERCOURSE" />
+    <NavigationProperty Name="TEACHER" Relationship="Self.FK__GIVENCOUR__GTeac__403A8C7D" FromRole="GIVENCOURSES" ToRole="TEACHER" />
+  </EntityType>
+  <EntityType Name="MENTOR">
+    <Key>
+      <PropertyRef Name="MentorId" />
+    </Key>
+    <Property Name="MentorId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MentorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="STUDENT" Relationship="Self.FK__STUDENT__SMentor__3D5E1FD2" FromRole="MENTOR" ToRole="STUDENT" />
+  </EntityType>
+  <EntityType Name="SEMESTERCOURSE">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="GIVENCOURSES" Relationship="Self.FK__GIVENCOUR__GCour__412EB0B6" FromRole="SEMESTERCOURSE" ToRole="GIVENCOURSES" />
+    <NavigationProperty Name="TAKENCOURSES" Relationship="Self.FK__TAKENCOUR__TCour__440B1D61" FromRole="SEMESTERCOURSE" ToRole="TAKENCOURSES" />
+  </EntityType>
+  <EntityType Name="STUDENT">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SMentorId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="MENTOR" Relationship="Self.FK__STUDENT__SMentor__3D5E1FD2" FromRole="STUDENT" ToRole="MENTOR" />
+    <NavigationProperty Name="TAKENCOURSES" Relationship="Self.FK__TAKENCOUR__TStud__4316F928" FromRole="STUDENT" ToRole="TAKENCOURSES" />
+  </EntityType>
+  <EntityType Name="TEACHER">
+    <Key>
+      <PropertyRef Name="TeacherId" />
+    </Key>
+    <Property Name="TeacherId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TeacherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="GIVENCOURSES" Relationship="Self.FK__GIVENCOUR__GTeac__403A8C7D" FromRole="TEACHER" ToRole="GIVENCOURSES" />
+  </EntityType>
+  <EntityType Name="TAKENCOURSES">
+    <Key>
+      <PropertyRef Name="TStudenId" />
+      <PropertyRef Name="TCourseId" />
+    </Key>
+    <Property Name="TStudenId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TCourseId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Grade" Type="Int32" />
+    <NavigationProperty Name="SEMESTERCOURSE" Relationship="Self.FK__TAKENCOUR__TCour__440B1D61" FromRole="TAKENCOURSES" ToRole="SEMESTERCOURSE" />
+    <NavigationProperty Name="STUDENT" Relationship="Self.FK__TAKENCOUR__TStud__4316F928" FromRole="TAKENCOURSES" ToRole="STUDENT" />
+  </EntityType>
+  <Association Name="FK__GIVENCOUR__GCour__412EB0B6">
+    <End Role="SEMESTERCOURSE" Type="Self.SEMESTERCOURSE" Multiplicity="1" />
+    <End Role="GIVENCOURSES" Type="Self.GIVENCOURSES" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="SEMESTERCOURSE">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="GIVENCOURSES">
+        <PropertyRef Name="GCourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GIVENCOUR__GTeac__403A8C7D">
+    <End Role="TEACHER" Type="Self.TEACHER" Multiplicity="1" />
+    <End Role="GIVENCOURSES" Type="Self.GIVENCOURSES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TEACHER">
+        <PropertyRef Name="TeacherId" />
+      </Principal>
+      <Dependent Role="GIVENCOURSES">
+        <PropertyRef Name="GTeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__STUDENT__SMentor__3D5E1FD2">
+    <End Role="MENTOR" Type="Self.MENTOR" Multiplicity="1" />
+    <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MENTOR">
+        <PropertyRef Name="MentorId" />
+      </Principal>
+      <Dependent Role="STUDENT">
+        <PropertyRef Name="SMentorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TAKENCOUR__TCour__440B1D61">
+    <End Role="SEMESTERCOURSE" Type="Self.SEMESTERCOURSE" Multiplicity="1" />
+    <End Role="TAKENCOURSES" Type="Self.TAKENCOURSES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SEMESTERCOURSE">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="TAKENCOURSES">
+        <PropertyRef Name="TCourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TAKENCOUR__TStud__4316F928">
+    <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="1" />
+    <End Role="TAKENCOURSES" Type="Self.TAKENCOURSES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STUDENT">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="TAKENCOURSES">
+        <PropertyRef Name="TStudenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EbysVol9Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="GIVENCOURSES" EntityType="Self.GIVENCOURSES" />
+    <EntitySet Name="MENTOR" EntityType="Self.MENTOR" />
+    <EntitySet Name="SEMESTERCOURSE" EntityType="Self.SEMESTERCOURSE" />
+    <EntitySet Name="STUDENT" EntityType="Self.STUDENT" />
+    <EntitySet Name="TEACHER" EntityType="Self.TEACHER" />
+    <EntitySet Name="TAKENCOURSES" EntityType="Self.TAKENCOURSES" />
+    <AssociationSet Name="FK__GIVENCOUR__GCour__412EB0B6" Association="Self.FK__GIVENCOUR__GCour__412EB0B6">
+      <End Role="SEMESTERCOURSE" EntitySet="SEMESTERCOURSE" />
+      <End Role="GIVENCOURSES" EntitySet="GIVENCOURSES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GIVENCOUR__GTeac__403A8C7D" Association="Self.FK__GIVENCOUR__GTeac__403A8C7D">
+      <End Role="TEACHER" EntitySet="TEACHER" />
+      <End Role="GIVENCOURSES" EntitySet="GIVENCOURSES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__STUDENT__SMentor__3D5E1FD2" Association="Self.FK__STUDENT__SMentor__3D5E1FD2">
+      <End Role="MENTOR" EntitySet="MENTOR" />
+      <End Role="STUDENT" EntitySet="STUDENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TAKENCOUR__TCour__440B1D61" Association="Self.FK__TAKENCOUR__TCour__440B1D61">
+      <End Role="SEMESTERCOURSE" EntitySet="SEMESTERCOURSE" />
+      <End Role="TAKENCOURSES" EntitySet="TAKENCOURSES" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TAKENCOUR__TStud__4316F928" Association="Self.FK__TAKENCOUR__TStud__4316F928">
+      <End Role="STUDENT" EntitySet="STUDENT" />
+      <End Role="TAKENCOURSES" EntitySet="TAKENCOURSES" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

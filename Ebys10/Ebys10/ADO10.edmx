@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EbysVol9Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GIVENCOURSES">
+          <Key>
+            <PropertyRef Name="GCourseId" />
+          </Key>
+          <Property Name="GTeacherId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="GCourseId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Credit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MENTOR">
+          <Key>
+            <PropertyRef Name="MentorId" />
+          </Key>
+          <Property Name="MentorId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="MentorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEMESTERCOURSE">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SMentorId" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EbysVol9.dbo.TAKENCOURSES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TAKENCOURSES">
+          <Key>
+            <PropertyRef Name="TStudenId" />
+            <PropertyRef Name="TCourseId" />
+          </Key>
+          <Property Name="TStudenId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TCourseId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Grade" Type="int" />
+        </EntityType>
+        <EntityType Name="TEACHER">
+          <Key>
+            <PropertyRef Name="TeacherId" />
+          </Key>
+          <Property Name="TeacherId" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="TeacherName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__GIVENCOUR__GCour__412EB0B6">
+          <End Role="SEMESTERCOURSE" Type="Self.SEMESTERCOURSE" Multiplicity="1" />
+          <End Role="GIVENCOURSES" Type="Self.GIVENCOURSES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SEMESTERCOURSE">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="GIVENCOURSES">
+              <PropertyRef Name="GCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GIVENCOUR__GTeac__403A8C7D">
+          <End Role="TEACHER" Type="Self.TEACHER" Multiplicity="1" />
+          <End Role="GIVENCOURSES" Type="Self.GIVENCOURSES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEACHER">
+              <PropertyRef Name="TeacherId" />
+            </Principal>
+            <Dependent Role="GIVENCOURSES">
+              <PropertyRef Name="GTeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STUDENT__SMentor__3D5E1FD2">
+          <End Role="MENTOR" Type="Self.MENTOR" Multiplicity="1" />
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENTOR">
+              <PropertyRef Name="MentorId" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="SMentorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TAKENCOUR__TCour__440B1D61">
+          <End Role="SEMESTERCOURSE" Type="Self.SEMESTERCOURSE" Multiplicity="1" />
+          <End Role="TAKENCOURSES" Type="Self.TAKENCOURSES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEMESTERCOURSE">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="TAKENCOURSES">
+              <PropertyRef Name="TCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TAKENCOUR__TStud__4316F928">
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="1" />
+          <End Role="TAKENCOURSES" Type="Self.TAKENCOURSES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STUDENT">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="TAKENCOURSES">
+              <PropertyRef Name="TStudenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EbysVol9ModelStoreContainer">
+          <EntitySet Name="GIVENCOURSES" EntityType="Self.GIVENCOURSES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENTOR" EntityType="Self.MENTOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEMESTERCOURSE" EntityType="Self.SEMESTERCOURSE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEACHER" EntityType="Self.TEACHER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAKENCOURSES" EntityType="Self.TAKENCOURSES" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TAKENCOURSES].[TStudenId] AS [TStudenId], 
+    [TAKENCOURSES].[TCourseId] AS [TCourseId], 
+    [TAKENCOURSES].[Grade] AS [Grade]
+    FROM [dbo].[TAKENCOURSES] AS [TAKENCOURSES]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__GIVENCOUR__GCour__412EB0B6" Association="Self.FK__GIVENCOUR__GCour__412EB0B6">
+            <End Role="SEMESTERCOURSE" EntitySet="SEMESTERCOURSE" />
+            <End Role="GIVENCOURSES" EntitySet="GIVENCOURSES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GIVENCOUR__GTeac__403A8C7D" Association="Self.FK__GIVENCOUR__GTeac__403A8C7D">
+            <End Role="TEACHER" EntitySet="TEACHER" />
+            <End Role="GIVENCOURSES" EntitySet="GIVENCOURSES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STUDENT__SMentor__3D5E1FD2" Association="Self.FK__STUDENT__SMentor__3D5E1FD2">
+            <End Role="MENTOR" EntitySet="MENTOR" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TAKENCOUR__TCour__440B1D61" Association="Self.FK__TAKENCOUR__TCour__440B1D61">
+            <End Role="SEMESTERCOURSE" EntitySet="SEMESTERCOURSE" />
+            <End Role="TAKENCOURSES" EntitySet="TAKENCOURSES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TAKENCOUR__TStud__4316F928" Association="Self.FK__TAKENCOUR__TStud__4316F928">
+            <End Role="STUDENT" EntitySet="STUDENT" />
+            <End Role="TAKENCOURSES" EntitySet="TAKENCOURSES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EbysVol9Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GIVENCOURSES">
+          <Key>
+            <PropertyRef Name="GCourseId" />
+          </Key>
+          <Property Name="GTeacherId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GCourseId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Credit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SEMESTERCOURSE" Relationship="Self.FK__GIVENCOUR__GCour__412EB0B6" FromRole="GIVENCOURSES" ToRole="SEMESTERCOURSE" />
+          <NavigationProperty Name="TEACHER" Relationship="Self.FK__GIVENCOUR__GTeac__403A8C7D" FromRole="GIVENCOURSES" ToRole="TEACHER" />
+        </EntityType>
+        <EntityType Name="MENTOR">
+          <Key>
+            <PropertyRef Name="MentorId" />
+          </Key>
+          <Property Name="MentorId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MentorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="STUDENT" Relationship="Self.FK__STUDENT__SMentor__3D5E1FD2" FromRole="MENTOR" ToRole="STUDENT" />
+        </EntityType>
+        <EntityType Name="SEMESTERCOURSE">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GIVENCOURSES" Relationship="Self.FK__GIVENCOUR__GCour__412EB0B6" FromRole="SEMESTERCOURSE" ToRole="GIVENCOURSES" />
+          <NavigationProperty Name="TAKENCOURSES" Relationship="Self.FK__TAKENCOUR__TCour__440B1D61" FromRole="SEMESTERCOURSE" ToRole="TAKENCOURSES" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SMentorId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="MENTOR" Relationship="Self.FK__STUDENT__SMentor__3D5E1FD2" FromRole="STUDENT" ToRole="MENTOR" />
+          <NavigationProperty Name="TAKENCOURSES" Relationship="Self.FK__TAKENCOUR__TStud__4316F928" FromRole="STUDENT" ToRole="TAKENCOURSES" />
+        </EntityType>
+        <EntityType Name="TEACHER">
+          <Key>
+            <PropertyRef Name="TeacherId" />
+          </Key>
+          <Property Name="TeacherId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TeacherName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GIVENCOURSES" Relationship="Self.FK__GIVENCOUR__GTeac__403A8C7D" FromRole="TEACHER" ToRole="GIVENCOURSES" />
+        </EntityType>
+        <EntityType Name="TAKENCOURSES">
+          <Key>
+            <PropertyRef Name="TStudenId" />
+            <PropertyRef Name="TCourseId" />
+          </Key>
+          <Property Name="TStudenId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TCourseId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Grade" Type="Int32" />
+          <NavigationProperty Name="SEMESTERCOURSE" Relationship="Self.FK__TAKENCOUR__TCour__440B1D61" FromRole="TAKENCOURSES" ToRole="SEMESTERCOURSE" />
+          <NavigationProperty Name="STUDENT" Relationship="Self.FK__TAKENCOUR__TStud__4316F928" FromRole="TAKENCOURSES" ToRole="STUDENT" />
+        </EntityType>
+        <Association Name="FK__GIVENCOUR__GCour__412EB0B6">
+          <End Role="SEMESTERCOURSE" Type="Self.SEMESTERCOURSE" Multiplicity="1" />
+          <End Role="GIVENCOURSES" Type="Self.GIVENCOURSES" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SEMESTERCOURSE">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="GIVENCOURSES">
+              <PropertyRef Name="GCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GIVENCOUR__GTeac__403A8C7D">
+          <End Role="TEACHER" Type="Self.TEACHER" Multiplicity="1" />
+          <End Role="GIVENCOURSES" Type="Self.GIVENCOURSES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEACHER">
+              <PropertyRef Name="TeacherId" />
+            </Principal>
+            <Dependent Role="GIVENCOURSES">
+              <PropertyRef Name="GTeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__STUDENT__SMentor__3D5E1FD2">
+          <End Role="MENTOR" Type="Self.MENTOR" Multiplicity="1" />
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENTOR">
+              <PropertyRef Name="MentorId" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="SMentorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TAKENCOUR__TCour__440B1D61">
+          <End Role="SEMESTERCOURSE" Type="Self.SEMESTERCOURSE" Multiplicity="1" />
+          <End Role="TAKENCOURSES" Type="Self.TAKENCOURSES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEMESTERCOURSE">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="TAKENCOURSES">
+              <PropertyRef Name="TCourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TAKENCOUR__TStud__4316F928">
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="1" />
+          <End Role="TAKENCOURSES" Type="Self.TAKENCOURSES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STUDENT">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="TAKENCOURSES">
+              <PropertyRef Name="TStudenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EbysVol9Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GIVENCOURSES" EntityType="Self.GIVENCOURSES" />
+          <EntitySet Name="MENTOR" EntityType="Self.MENTOR" />
+          <EntitySet Name="SEMESTERCOURSE" EntityType="Self.SEMESTERCOURSE" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" />
+          <EntitySet Name="TEACHER" EntityType="Self.TEACHER" />
+          <EntitySet Name="TAKENCOURSES" EntityType="Self.TAKENCOURSES" />
+          <AssociationSet Name="FK__GIVENCOUR__GCour__412EB0B6" Association="Self.FK__GIVENCOUR__GCour__412EB0B6">
+            <End Role="SEMESTERCOURSE" EntitySet="SEMESTERCOURSE" />
+            <End Role="GIVENCOURSES" EntitySet="GIVENCOURSES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GIVENCOUR__GTeac__403A8C7D" Association="Self.FK__GIVENCOUR__GTeac__403A8C7D">
+            <End Role="TEACHER" EntitySet="TEACHER" />
+            <End Role="GIVENCOURSES" EntitySet="GIVENCOURSES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__STUDENT__SMentor__3D5E1FD2" Association="Self.FK__STUDENT__SMentor__3D5E1FD2">
+            <End Role="MENTOR" EntitySet="MENTOR" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TAKENCOUR__TCour__440B1D61" Association="Self.FK__TAKENCOUR__TCour__440B1D61">
+            <End Role="SEMESTERCOURSE" EntitySet="SEMESTERCOURSE" />
+            <End Role="TAKENCOURSES" EntitySet="TAKENCOURSES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TAKENCOUR__TStud__4316F928" Association="Self.FK__TAKENCOUR__TStud__4316F928">
+            <End Role="STUDENT" EntitySet="STUDENT" />
+            <End Role="TAKENCOURSES" EntitySet="TAKENCOURSES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EbysVol9ModelStoreContainer" CdmEntityContainer="EbysVol9Entities">
+          <EntitySetMapping Name="GIVENCOURSES">
+            <EntityTypeMapping TypeName="EbysVol9Model.GIVENCOURSES">
+              <MappingFragment StoreEntitySet="GIVENCOURSES">
+                <ScalarProperty Name="GTeacherId" ColumnName="GTeacherId" />
+                <ScalarProperty Name="GCourseId" ColumnName="GCourseId" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENTOR">
+            <EntityTypeMapping TypeName="EbysVol9Model.MENTOR">
+              <MappingFragment StoreEntitySet="MENTOR">
+                <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+                <ScalarProperty Name="MentorName" ColumnName="MentorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEMESTERCOURSE">
+            <EntityTypeMapping TypeName="EbysVol9Model.SEMESTERCOURSE">
+              <MappingFragment StoreEntitySet="SEMESTERCOURSE">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STUDENT">
+            <EntityTypeMapping TypeName="EbysVol9Model.STUDENT">
+              <MappingFragment StoreEntitySet="STUDENT">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="SMentorId" ColumnName="SMentorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEACHER">
+            <EntityTypeMapping TypeName="EbysVol9Model.TEACHER">
+              <MappingFragment StoreEntitySet="TEACHER">
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAKENCOURSES">
+            <EntityTypeMapping TypeName="EbysVol9Model.TAKENCOURSES">
+              <MappingFragment StoreEntitySet="TAKENCOURSES">
+                <ScalarProperty Name="TStudenId" ColumnName="TStudenId" />
+                <ScalarProperty Name="TCourseId" ColumnName="TCourseId" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

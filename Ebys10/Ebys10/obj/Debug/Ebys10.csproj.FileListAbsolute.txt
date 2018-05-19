@@ -1,0 +1,15 @@
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\bin\Debug\Ebys10.exe.config
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\bin\Debug\Ebys10.exe
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\bin\Debug\Ebys10.pdb
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\bin\Debug\EntityFramework.dll
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\bin\Debug\EntityFramework.xml
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.csprojResolveAssemblyReference.cache
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.Properties.Resources.resources
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.csproj.GenerateResource.Cache
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.exe
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.pdb
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.EditGrade.resources
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.Login.resources
+C:\Users\gokse\Desktop\PROJECTS\Ebys10\Ebys10\obj\Debug\Ebys10.Enrolment.resources

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EbysVol9ModelStoreContainer" CdmEntityContainer="EbysVol9Entities">
+    <EntitySetMapping Name="GIVENCOURSES">
+      <EntityTypeMapping TypeName="EbysVol9Model.GIVENCOURSES">
+        <MappingFragment StoreEntitySet="GIVENCOURSES">
+          <ScalarProperty Name="GTeacherId" ColumnName="GTeacherId" />
+          <ScalarProperty Name="GCourseId" ColumnName="GCourseId" />
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENTOR">
+      <EntityTypeMapping TypeName="EbysVol9Model.MENTOR">
+        <MappingFragment StoreEntitySet="MENTOR">
+          <ScalarProperty Name="MentorId" ColumnName="MentorId" />
+          <ScalarProperty Name="MentorName" ColumnName="MentorName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEMESTERCOURSE">
+      <EntityTypeMapping TypeName="EbysVol9Model.SEMESTERCOURSE">
+        <MappingFragment StoreEntitySet="SEMESTERCOURSE">
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STUDENT">
+      <EntityTypeMapping TypeName="EbysVol9Model.STUDENT">
+        <MappingFragment StoreEntitySet="STUDENT">
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+          <ScalarProperty Name="SMentorId" ColumnName="SMentorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TEACHER">
+      <EntityTypeMapping TypeName="EbysVol9Model.TEACHER">
+        <MappingFragment StoreEntitySet="TEACHER">
+          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+          <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TAKENCOURSES">
+      <EntityTypeMapping TypeName="EbysVol9Model.TAKENCOURSES">
+        <MappingFragment StoreEntitySet="TAKENCOURSES">
+          <ScalarProperty Name="TStudenId" ColumnName="TStudenId" />
+          <ScalarProperty Name="TCourseId" ColumnName="TCourseId" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
